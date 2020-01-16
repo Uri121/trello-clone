@@ -1,0 +1,88 @@
+$primaryColor:#9dab86;
+$secondaryColor:#e6a157;
+
+body{
+    margin: 0;
+    height: 100%;
+}
+
+.nav{
+    background: $primaryColor;
+    ul{
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        margin: 0;
+        li{
+            list-style: none;
+            margin: .5rem.5rem;
+            padding: .3rem.2rem;
+
+        }
+         a{
+            text-decoration: none;
+            color: white;
+            cursor: pointer;
+        }
+
+        .register{
+            position: 'absolute';
+            width: 400;
+            border: '2px solid #000';
+            form{
+                display: flex;
+                flex-direction: column;
+            }
+        }
+       
+    }
+  
+}
+
+
+
+.lists-container{
+    display: flex;
+    .list{
+        width: 300px;
+        border-radius: 5px;
+        background: $primaryColor;
+        padding: .2rem .3rem;
+        margin: .5rem .5rem;
+    }
+    
+    .card{
+        margin: .4rem 0;
+        padding: .2rem .3rem;
+    }
+    .actionButton{
+        display: flex;
+        cursor: pointer;
+        border-radius: 3px;
+        height: 36px;
+        width: 272px;
+        padding-left: 10px;
+        margin: .5rem 0;
+    }
+
+    .card-form{
+        Textarea{
+            resize: none;
+            width: 100%;
+            overflow: hidden;
+            outline: none;
+            border: none;
+        }
+        .form-card{
+            overflow: visible;
+            min-height: 20px;
+            min-width: 272;
+            padding: .2rem .3rem;
+        }
+        .form-button{
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+        }
+    }
+}
