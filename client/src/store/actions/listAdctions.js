@@ -45,20 +45,25 @@ export const sort = (
   droppableIndexStart,
   droppableIndexEnd,
   draggableId,
-  type
+  islist,
+  user
 ) => {
-  return {
-    type: mutations.DRAG_HAPPENED,
-    payload: {
+
+  return dispatch=> {
+    const data={
       droppableIdStart,
       droppableIdEnd,
       droppableIndexStart,
       droppableIndexEnd,
       draggableId,
-      type
+      islist
     }
-  };
-};
+    dispatch({type:mutations.DRAG_HAPPENED,payload:data});
+    axios.post("/list/update",{
+      data
+    });
+}
+}
 
 export const loadList=(user)=>{
   return dispatch => {
@@ -77,15 +82,38 @@ export const loadList=(user)=>{
         })
         .catch(err => {
           dispatch({ type: mutations.LIST_LOADED_FAILED });
-          // dispatch(
-          //   returnErrors(
-          //     err.response.data,
-          //     err.response.status,
-          //     "LIST_LOADED_FAILED"
-          //   )
-          // );
+          dispatch(
+            returnErrors(
+              err.response.data,
+              err.response.status,
+              "LIST_LOADED_FAILED"
+            )
+          );
         });
     
+  };
+}
+
+export const deleteList=(id,token)=>{
+  return dispatch => {
+    dispatch(clearErros());
+    console.log(id);
+    const header = tokenConfig(token);
+    if (header) {
+      axios
+        .delete(`/list/delete/${id}`)
+        .then(res=>{dispatch({ type: mutations.LIST_DELETED, payload:id})})
+        .catch(err => {
+          dispatch({ type: mutations.LIST_DELETED_FAILED });
+          dispatch(
+            returnErrors(
+              err.response.data,
+              err.response.status,
+              "LIST_DELETED_FAILED"
+            )
+          );
+        });
+    }
   };
 }
 

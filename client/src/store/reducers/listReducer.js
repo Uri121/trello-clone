@@ -2,6 +2,8 @@ import * as mutations from "../mutations";
 
 const listReducer=(state= [],action)=>{
     switch(action.type){
+        case mutations.LIST_DELETED:
+            return state.filter(list => list.id !== action.payload);
         case mutations.LIST_LOADED:
              return [
             ...action.payload
@@ -17,7 +19,6 @@ const listReducer=(state= [],action)=>{
             const newCard={
                ...action.payload.newCard
             };
-            console.log(newCard);
             
            const newState = state.map(list=>{
                 if(list.id===action.payload.listID){
@@ -37,25 +38,33 @@ const listReducer=(state= [],action)=>{
                 droppableIdEnd,
                 droppableIndexStart,
                 droppableIndexEnd,
-                type
+                islist
             } = action.payload;
+            console.log( droppableIdStart,
+                droppableIdEnd,
+                droppableIndexStart,
+                droppableIndexEnd,
+                islist);
+            
             const newState=[...state];
 
             //dragging list around
-            if(type==="list"){
+            if(islist==="list"){
                 const list = newState.splice(droppableIndexStart,1);
                 newState.splice(droppableIndexEnd,0,...list);
                 return newState;
             }
 
             //in the same list
-            if(droppableIdStart === droppableIdEnd){
+            if(droppableIdStart === droppableIndexEnd){
             
                 const list = state.find(list=>droppableIdStart === list.id);
-    
+                console.log(list);
+                
                 const card = list.cards.splice(droppableIndexStart,1)
                 list.cards.splice(droppableIndexEnd,0,...card);
             }
+
             //other list
             if(droppableIdStart!== droppableIndexEnd){
                 //find the list where drag happened
@@ -72,6 +81,21 @@ const listReducer=(state= [],action)=>{
 
             }
             return newState;
+        case mutations.DELETE_CARD:{
+            const {listID,id} = action.payload;
+            const newState = state.map(list=>{
+                if(list.id===listID){
+                    return{
+                        ...list,
+                        cards: list.cards.filter(card=>card.id!==id)
+                    }
+                }else{
+                    return list
+                }
+            });
+            return newState;
+        }
+            
         default:
             return state;
     }

@@ -20,13 +20,10 @@ async function validatePassword(plainPassword, hashedPassword) {
 //add user
 router.post("/create", async (req, res) => {
   try {
-    let { name, email, phone, password, role } = req.body;
+    let { name, email, password } = req.body;
     let userMail = await User.findOne({ email: email });
-    console.log("user email found:",userMail);
     if (userMail) {
-      res
-        .status(500)
-        .send({ msg: "A user with that email is already exist." });
+      res.status(500).send({ msg: "A user with that email is already exist." });
       return;
     }
 
@@ -34,9 +31,7 @@ router.post("/create", async (req, res) => {
     const user = new User({
       name: name,
       email: email,
-      phone: phone,
-      password: hashedPassword,
-      role: role || "basic"
+      password: hashedPassword
     });
 
     user.save().then(user => {
@@ -64,13 +59,12 @@ router.post("/login", async (req, res) => {
     console.log(user);
 
     if (!user) {
-      return res.status(500).send({msg:"User does not exist"});
+      return res.status(500).send({ msg: "User does not exist" });
     }
     const validPassword = await validatePassword(password, user.password);
     if (!validPassword) {
-      return res.status(500).send({msg:"Wrong password"});
+      return res.status(500).send({ msg: "Wrong password" });
     }
-
 
     jwt.sign(
       { id: user._id },
@@ -86,9 +80,11 @@ router.post("/login", async (req, res) => {
   }
 });
 
-//get user from token using jwt 
-router.get("/auth",auth,(req,res)=>{
-  User.findById(req.user.id).select('-password').then(user=>res.json(user));
-})
+//get user from token using jwt
+router.get("/auth", auth, (req, res) => {
+  User.findById(req.user.id)
+    .select("-password")
+    .then(user => res.json(user));
+});
 
 module.exports = router;

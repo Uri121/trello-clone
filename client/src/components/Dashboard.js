@@ -5,24 +5,22 @@ import TrelloActionButton from "./TrelloActionButton";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { sort } from "../store/actions/listAdctions";
 
-const Dashboard=({ lists, dispatch })=>{
+const Dashboard=({ lists, drag,user })=>{
   const onDragEnd = result => {
     const { destination, source, draggableId, type } = result;
 
     if (!destination) {
       return;
     }
-
-    dispatch(
-      sort(
+    drag(
         source.droppableId,
         destination.droppableId,
         source.index,
         destination.index,
         draggableId,
-        type
-      )
-    );
+        type,
+        user
+      );
   };
 
   return (
@@ -58,7 +56,12 @@ const Dashboard=({ lists, dispatch })=>{
 }
 
 const mapStateToProps = state => ({
-  lists: state.lists
+  lists: state.lists,
+  user:state.auth.user.email
 });
 
-export default connect(mapStateToProps)(Dashboard);
+const mapDispatchToProps={
+  drag:sort
+};
+
+export default connect(mapStateToProps,mapDispatchToProps)(Dashboard);

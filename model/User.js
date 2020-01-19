@@ -1,6 +1,30 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 //create Schema
+
+const CardSchema = new Schema({
+  text: {
+    type: String
+  },
+  id: {
+    type: String
+  },
+});
+
+//create Schema
+const ListSchema = new Schema({
+  title: {
+    type: String,
+    required: true
+  },
+  id: {
+    type: String,
+    unique: true,
+    required: true
+  },
+  cards:[CardSchema]
+});
+
 const UserSchema = new Schema({
   name: {
     type: String,

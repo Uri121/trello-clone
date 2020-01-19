@@ -37,3 +37,30 @@ export const addCard = (listId,text,token)=>{
         }
       };
 };
+
+export const deleteCard=(id,token,listID)=>{
+  return dispatch => {
+    dispatch(clearErros());
+    const header = tokenConfig(token);
+    if (header) {
+      axios
+        .delete("/card/delete",{
+          data:{
+            id:id,
+            listID:listID
+          }
+        })
+        .then(dispatch({ type: mutations.DELETE_CARD, payload:{id,listID}}))
+        .catch(err => {
+          dispatch({ type: mutations.DELETE_CARD_FAILED });
+          // dispatch(
+          //   returnErrors(
+          //     err.response.data,
+          //     err.response.status,
+          //     "DELETE_CARD_FAILED"
+          //   )
+          // );
+        });
+    }
+  };
+}

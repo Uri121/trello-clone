@@ -90,6 +90,7 @@ class TrelloActionButton extends Component {
     }
     return;
   };
+  
   renderAddButton = () => {
     const { list } = this.props;
     const buttonText = list ? "Add another list" : "Add another card";

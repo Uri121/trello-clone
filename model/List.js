@@ -3,16 +3,12 @@ const Schema = mongoose.Schema;
 
 const CardSchema = new Schema({
   text: {
-    type: String,
-    required: true
+    type: String
   },
   id: {
-    type: String,
-    unique: true,
-    required: true
-  }
+    type: String
+  },
 });
-
 
 //create Schema
 const ListSchema = new Schema({

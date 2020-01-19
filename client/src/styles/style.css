@@ -34,9 +34,9 @@ body {
 }
 
 .nav ul .register {
-  position: 'absolute';
+  position: "absolute";
   width: 400;
-  border: '2px solid #000';
+  border: "2px solid #000";
 }
 
 .nav ul .register form {
@@ -59,13 +59,61 @@ body {
   width: 300px;
   border-radius: 5px;
   background: #9dab86;
-  padding: .2rem .3rem;
-  margin: .5rem .5rem;
+  padding: 0.2rem 0.3rem;
+  margin: 0.5rem 0.5rem;
+}
+
+.lists-container .list .title {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.lists-container .list .title h4 {
+  max-width: 80%;
+  word-wrap: break-word;
+}
+
+.lists-container .list .title .button-delete button {
+  background-color: #9dab86;
+  border: none;
 }
 
 .lists-container .card {
-  margin: .4rem 0;
-  padding: .2rem .3rem;
+  margin: 0.4rem 0;
+  padding: 0.2rem 0.3rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.lists-container .card .button-delete {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+.lists-container .card .button-delete button {
+  background-color: inherit;
+  border: none;
+}
+
+.lists-container .card p {
+  max-width: 80%;
+  word-wrap: break-word;
 }
 
 .lists-container .actionButton {
@@ -77,10 +125,10 @@ body {
   height: 36px;
   width: 272px;
   padding-left: 10px;
-  margin: .5rem 0;
+  margin: 0.5rem 0;
 }
 
-.lists-container .card-form Textarea {
+.lists-container .card-form textarea {
   resize: none;
   width: 100%;
   overflow: hidden;
@@ -92,7 +140,7 @@ body {
   overflow: visible;
   min-height: 20px;
   min-width: 272;
-  padding: .2rem .3rem;
+  padding: 0.2rem 0.3rem;
 }
 
 .lists-container .card-form .form-button {

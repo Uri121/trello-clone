@@ -56,7 +56,7 @@ export const login = (values, dispatch) => {
     })
     .then(res => {
       dispatch({ type: mutations.LOGIN_SUCCESS, payload: res.data });
-      dispatch(loadList(values.email));
+      dispatch(loadList(res.data.user.email));
       localStorage.setItem("token", res.data.token);
       history.push("/dashboard");
     })
