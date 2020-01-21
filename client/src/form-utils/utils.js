@@ -13,7 +13,7 @@ export const renderInput = ({
   label,
   className
 }) => (
-  <div className="mb-3">
+  <div className="mb-2">
     <input
       {...input}
       type={type}

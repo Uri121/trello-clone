@@ -4,21 +4,21 @@ import { reduxForm, Field } from "redux-form";
 import { renderInput, required, email, password } from "../form-utils/utils";
 import { login } from "./../store/actions/authActions";
 import { NavLink } from "react-router-dom";
+import logo from "../assets/logo.png";
 
 const Login = ({ handleSubmit, valid, errMsg }) => {
   return (
-    <div className="container">
-      <div className="register">
-        <NavLink to="/signup">Sign Up</NavLink>
+    <div className="login-container">
+      <div className="title-container">
+        <h1>Login to start manging your tasks</h1>
       </div>
-      <h1 className="text-center">Login</h1>
-      <form id="login-form" className="form-group" onSubmit={handleSubmit}>
+      <form className="login-form" onSubmit={handleSubmit}>
         <Field
           name="email"
           type="email"
           component={renderInput}
           validate={[required, email]}
-          className="form-control"
+          className="form-input"
           label="Email"
         />
         <Field
@@ -26,18 +26,20 @@ const Login = ({ handleSubmit, valid, errMsg }) => {
           type="password"
           component={renderInput}
           validate={[required, password]}
-          className="form-control"
+          className="form-input"
           label="Password"
         />
         {errMsg !== "No token, authorization denied" ? <p>{errMsg}</p> : null}
-        <button
-          className="btn btn-primary mt-3"
-          disabled={!valid}
-          type="submit"
-        >
-          Submit
-        </button>
+        <div className="login">
+          <button className="form-button" disabled={!valid} type="submit">
+            Login
+          </button>
+          <NavLink to="/signup">Dont have account ?</NavLink>
+        </div>
       </form>
+      <div className="logo">
+        <img src={logo} alt="" />
+      </div>
     </div>
   );
 };

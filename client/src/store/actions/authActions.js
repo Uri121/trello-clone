@@ -1,8 +1,8 @@
 import * as mutations from "../mutations";
 import axios from "axios";
 import { returnErrors, clearErros } from "./errorActions";
-import { history } from '../history';
-import { loadList } from './listAdctions';
+import { history } from "../history";
+import { loadList } from "./listAdctions";
 
 export const loadUser = () => (dispatch, getState) => {
   dispatch({ type: mutations.USER_LOADING });
@@ -35,7 +35,7 @@ export const register = (values, dispatch) => {
     })
     .then(res => {
       dispatch({ type: mutations.REGISTER_SUCCESS, payload: res.data });
-      localStorage.setItem("token",res.data.token);
+      localStorage.setItem("token", res.data.token);
       history.push("/dashboard");
     })
     .catch(err => {
@@ -43,7 +43,6 @@ export const register = (values, dispatch) => {
       dispatch(
         returnErrors(err.response.data, err.response.status, "REGISTER_FAIL")
       );
-      history.push("/");
     });
 };
 

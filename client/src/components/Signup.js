@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { reduxForm, Field } from "redux-form";
 import { connect } from "react-redux";
 import {
@@ -9,26 +9,35 @@ import {
   password
 } from "../form-utils/utils";
 import { register } from "../store/actions/authActions";
+import logo from "../assets/logo.png";
+import { clearErros } from "../store/actions/errorActions";
 
-const Signup = ({ handleSubmit, valid, errMsg }) => {
+const Signup = ({ handleSubmit, valid, errMsg, clear }) => {
+  useEffect(() => {
+    if (errMsg) {
+      clear();
+    }
+  }, [clear, errMsg]);
   return (
-    <div className="container">
-      <h1 className="text-center">Sign Up</h1>
-      <form className="form-group" onSubmit={handleSubmit}>
+    <div className="login-container">
+      <div className="title-container">
+        <h1>Register to start manging your tasks</h1>
+      </div>
+      <form className="login-form" onSubmit={handleSubmit}>
         <Field
           name="name"
           type="text"
           component={renderInput}
           validate={[required, name]}
           label="Name"
-          className="form-control"
+          className="form-input"
         />
         <Field
           name="email"
           type="email"
           component={renderInput}
           validate={[required, email]}
-          className="form-control"
+          className="form-input"
           label="Email"
         />
         <Field
@@ -36,19 +45,20 @@ const Signup = ({ handleSubmit, valid, errMsg }) => {
           type="password"
           component={renderInput}
           validate={[required, password]}
-          className="form-control"
+          className="form-input"
           label="Password"
         />
         {errMsg !== "No token, authorization denied" ? <p>{errMsg}</p> : null}
 
-        <button
-          className="btn btn-primary mt-3"
-          disabled={!valid}
-          type="submit"
-        >
-          Submit
-        </button>
+        <div className="login">
+          <button className="form-button" disabled={!valid} type="submit">
+            Register
+          </button>
+        </div>
       </form>
+      <div className="logo">
+        <img src={logo} alt="" />
+      </div>
     </div>
   );
 };
@@ -57,7 +67,14 @@ const mapStateToProps = ({ error }) => ({
   errMsg: error.msg.msg
 });
 
-export default connect(mapStateToProps)(
+const mapDispatchToProps = {
+  clear: clearErros
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(
   reduxForm({
     form: "signup",
     onSubmit: register
