@@ -34,6 +34,8 @@ router.post("/create", async (req, res) => {
       password: hashedPassword
     });
 
+    console.log( process.env.JWT_SECRET);
+    
     user.save().then(user => {
       jwt.sign(
         { id: user._id },
@@ -54,9 +56,7 @@ router.post("/create", async (req, res) => {
 router.post("/login", async (req, res) => {
   try {
     let { email, password } = req.body;
-    console.log(email);
     const user = await User.findOne({ email: email });
-    console.log(user);
 
     if (!user) {
       return res.status(500).send({ msg: "User does not exist" });
@@ -65,6 +65,7 @@ router.post("/login", async (req, res) => {
     if (!validPassword) {
       return res.status(500).send({ msg: "Wrong password" });
     }
+    console.log( process.env.JWT_SECRET);
 
     jwt.sign(
       { id: user._id },

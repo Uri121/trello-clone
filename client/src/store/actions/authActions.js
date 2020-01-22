@@ -7,7 +7,6 @@ import { loadList } from "./listAdctions";
 export const loadUser = () => (dispatch, getState) => {
   dispatch({ type: mutations.USER_LOADING });
   const header = tokenConfig(getState);
-  console.log(header);
 
   if (header) {
     axios
@@ -26,7 +25,6 @@ export const loadUser = () => (dispatch, getState) => {
 
 export const register = (values, dispatch) => {
   dispatch(clearErros());
-  console.log(values);
   axios
     .post("/user/create", {
       name: values.name,
