@@ -71,11 +71,7 @@ export const loadList = user => {
     console.log(user);
 
     axios
-      .get("/list/get", {
-        params: {
-          user
-        }
-      })
+      .get(`/list/get/${user}`)
       .then(res => {
         dispatch({ type: mutations.LIST_LOADED, payload: res.data });
       })

@@ -6,7 +6,7 @@ const Navbar = ({ userName, hundleLogout }) => {
     <div className="nav-container">
       <ul>
         <li>
-          <img src={logo} href="" />
+          <img src={logo} alt="" />
         </li>
         <li>Welcome {userName} !!</li>
         <li onClick={() => hundleLogout()} id="logout">

@@ -1,12 +1,18 @@
-import React from "react";
+import React,{useEffect} from "react";
 import { connect } from "react-redux";
 import { reduxForm, Field } from "redux-form";
 import { renderInput, required, email, password } from "../form-utils/utils";
 import { login } from "./../store/actions/authActions";
 import { NavLink } from "react-router-dom";
 import logo from "../assets/logo.png";
+import { clearErros } from "../store/actions/errorActions";
 
-const Login = ({ handleSubmit, valid, errMsg }) => {
+const Login = ({ handleSubmit, valid, errMsg,clear }) => {
+
+  useEffect(() => {
+    clear();
+  }, [clear]);
+
   return (
     <div className="login-container">
       <div className="title-container">
@@ -48,7 +54,11 @@ const mapStateToProps = ({ error }) => ({
   errMsg: error.msg.msg
 });
 
-export default connect(mapStateToProps)(
+const mapDispatchToProps = {
+  clear: clearErros
+};
+
+export default connect(mapStateToProps,mapDispatchToProps)(
   reduxForm({
     form: "login",
     onSubmit: login

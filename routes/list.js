@@ -4,8 +4,8 @@ const router = express.Router();
 const List = require("../model/List");
 
 //get all lists of the user
-router.get("/get", (req, res) => {
-  List.find({ user: req.query.user })
+router.get("/get/:user", (req, res) => {
+  List.find({ user: req.params.user })
     .then(lists => res.json(lists))
     .catch(err => res.status(404).json({ msg: err }));
 });

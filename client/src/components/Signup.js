@@ -14,10 +14,8 @@ import { clearErros } from "../store/actions/errorActions";
 
 const Signup = ({ handleSubmit, valid, errMsg, clear }) => {
   useEffect(() => {
-    if (errMsg) {
-      clear();
-    }
-  }, [clear, errMsg]);
+    clear();
+  }, [clear]);
   return (
     <div className="login-container">
       <div className="title-container">
