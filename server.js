@@ -16,14 +16,6 @@ const app = express();
 //use routes
 app.use(bodyParser.urlencoded({ extended: true }), bodyParser.json(), cors());
 
-if (process.env.NODE_ENV == "production") {
-  app.use(express.static("client/build"));
-
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'client','build', 'index.html'));
-  });
-}
-
 //connect to Mongo
 mongoose
   .connect(process.env.MONGODB_URI || process.env.DB_CONNECT, {
@@ -38,6 +30,15 @@ mongoose
 app.use("/user", user);
 app.use("/list", list);
 app.use("/card", card);
+
+if (process.env.NODE_ENV == "production") {
+  app.use(express.static("client/build"));
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client','build', 'index.html'));
+  });
+}
+
 
 const port = process.env.PORT || 5000;
 
