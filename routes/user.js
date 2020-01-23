@@ -34,8 +34,6 @@ router.post("/create", async (req, res) => {
       password: hashedPassword
     });
 
-    console.log( process.env.JWT_SECRET);
-    
     user.save().then(user => {
       jwt.sign(
         { id: user._id },
@@ -56,19 +54,22 @@ router.post("/create", async (req, res) => {
 router.post("/login", async (req, res) => {
   try {
     let { email, password } = req.body;
-    const user = await User.findOne({ email: email });
+    const userFromDatabase = await User.findOne({ email: email });
 
-    if (!user) {
+    if (!userFromDatabase) {
       return res.status(500).send({ msg: "User does not exist" });
     }
-    const validPassword = await validatePassword(password, user.password);
+    const validPassword = await validatePassword(password, userFromDatabase.password);
     if (!validPassword) {
       return res.status(500).send({ msg: "Wrong password" });
     }
     console.log( process.env.JWT_SECRET);
-
+    const user={
+      name:userFromDatabase.name,
+      email:userFromDatabase.email
+    }
     jwt.sign(
-      { id: user._id },
+      { id: userFromDatabase._id },
       process.env.JWT_SECRET,
       { expiresIn: "1d" },
       (err, token) => {
